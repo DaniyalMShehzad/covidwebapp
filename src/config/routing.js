@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import About from "./screens/about";
 import Home from "./screens/home";
+import Navbar from "./screens/navbar";
 
 
 export default function Routing() {

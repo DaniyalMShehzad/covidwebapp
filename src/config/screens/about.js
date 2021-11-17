@@ -4,11 +4,14 @@ import React from "react"
 // import {} from 'react-router'
 import { useState, useEffect } from "react"
 import { Doughnut, Line } from "react-chartjs-2"
+import Navbar from "./navbar"
+
 function About() {
     const [item, setItem] = useState([])
-    const [death, setDeath] = useState([])
-    const [recovered, setRecovered] = useState([])
-    const [cases, setCases] = useState([])
+    const [death, setDeath] = useState("")
+    const [recovered, setRecovered] = useState("")
+    const [cases, setCases] = useState("")
+    const [population,setPopulation] =useState("")
 
     // setData(data)
     useEffect(() => {
@@ -25,6 +28,8 @@ function About() {
             setCases(e.data.cases)
             setRecovered(e.data.recovered)
             setDeath(e.data.deaths)
+            setPopulation(e.data.population)
+            // console.log(population);
         })
 
     }, [])
@@ -58,11 +63,16 @@ function About() {
     // }
     // }
     // };
+    const percentage=(a,b)=>{
+      const pr= (a/b)*100
+      return pr.toFixed(2);
+    }
     return (
         <>
             <div className="obj-div-card">
+            <Navbar/>
                 {/* <Doughnut className="" data={data}/> */}
-                {/* <Doughnut className="obj-div-card-Doughnut" data={data} width={50} height={50}  /> */} 
+                {/* <Doughnut className="obj-div-card-Doughnut" data={data} width={50} height={50}  /> */}
                 <div className="obj-div-span-1">
                     <div className="obj-div-span-2">
                         <div className="obj-div-3-span-3">
@@ -86,49 +96,55 @@ function About() {
                     </div>
                 </div>
                 <div className="container">
-            <div className="card">
-                <div className="box">
-                    <div className="percent">
-                        <svg>
-                            <circle cx="70" cy="70" r="70"></circle>
-                            <circle cx="70" cy="70" r="70"></circle>
-                        </svg>
-                        <div className="number">
-                            <h2>90<span>%</span></h2>
+                    <div className="card">
+                        <div className="box">
+                            <div className="percent">
+                                <svg className="div-svg-img-1">
+                                    <circle cx="70" cy="70" r="70" style={{strokeDashoffset: `calc(440 - (440 * ${percentage(cases,population)}) / 100)`,}}></circle>
+                                     <circle cx="70" cy="70" r="70" style={{strokeDashoffset: `calc(440 - (440 * ${percentage(cases,population)}) / 100)`,}}></circle>
+                                </svg>
+                                <div className="number">
+                                    <h2>{percentage(cases,population)}<span>%</span></h2>
+                                </div>
+                            </div>
+                            <div className="div-circle-text-2">
+                                <h2 className="text">Cases</h2>
+                            </div>
                         </div>
                     </div>
-                    <h2 className="text">Cases</h2>
-                </div>
-            </div>
-            <div className="card">
-                <div className="box">
-                    <div className="percent">
-                        <svg>
-                            <circle cx="70" cy="70" r="70"></circle>
-                            <circle cx="70" cy="70" r="70"></circle>
-                        </svg>
-                        <div class="number">
-                            <h2>85<span>%</span></h2>
+                    <div className="card">
+                        <div className="box">
+                            <div className="percent">
+                                <svg className="div-svg-img-1">
+                                    <circle cx="70" cy="70" r="70"></circle>
+                                    <circle cx="70" cy="70" r="70" style={{strokeDashoffset: `calc(440 - (440 * ${percentage(recovered,cases)}) / 100)`,}}></circle>
+                                </svg>
+                                <div class="number">
+                                    <h2>{percentage(recovered,cases)}<span>%</span></h2>
+                                </div>
+                            </div>
+                            <div className="div-circle-text-2">
+                                <h2 className="text">Recovery Rate</h2>
+                            </div>
                         </div>
                     </div>
-                    <h2 className="text">Recovery Rate</h2>
-                </div>
-            </div>
-            <div className="card">
-                <div className="box">
-                    <div className="percent">
-                        <svg>
-                            <circle cx="70" cy="70" r="70"></circle>
-                            <circle cx="70" cy="70" r="70"></circle>
-                        </svg>
-                        <div className="number">
-                            <h2>60<span>%</span></h2>
+                    <div className="card">
+                        <div className="box">
+                            <div className="percent">
+                                <svg className="div-svg-img-1">
+                                    <circle cx="70" cy="70" r="70"></circle>
+                                    <circle cx="70" cy="70" r="70"  style={{strokeDashoffset: `calc(440 - (440 * ${percentage(death,population)}) / 100)`}} ></circle>
+                                </svg>
+                                <div className="number">
+                                    <h2>{percentage(death,cases)}<span>%</span></h2>
+                                </div>
+                            </div>
+                            <div className="div-circle-text-2">
+                                <h2 className="text">Fatality Rate</h2>
+                            </div>
                         </div>
                     </div>
-                    <h2 className="text">Fatality Rate</h2>
                 </div>
-            </div>
-        </div>
             </div>
         </>
     )
