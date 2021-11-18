@@ -5,7 +5,7 @@ function Navbar() {
             <div className="navbar-return-div-nav-2">
                 <div className="nav-img-div-1">
                     <NavLink to="/">
-                    <img className="nav-img-div-img-span-1" src="https://www.coronatracker.com/_nuxt/img/262cfac.png" />
+                    <img className="nav-img-div-img-span-1" src="https://www.coronatracker.com/_nuxt/img/262cfac.png"/>
                     </NavLink>
                     
                     <div className="nav-img-div-span">
